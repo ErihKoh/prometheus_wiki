@@ -4,24 +4,31 @@ import markdown
 
 from . import util
 
-    # title = request.path_info.split('/')[-1]
-
-
 def index(request):
+    list_article = util.list_entries()
 
+    if request.method == "POST":
+        query = request.POST.get('q')
+
+        result = [item for item in list_article if query in item]
+
+        return render(request, "encyclopedia/index.html", {
+            "entries": result or list_article,
+        })
     return render(request, "encyclopedia/index.html", {
-        "entries": util.list_entries(),
-    })
+            "entries": list_article,
+        })   
 
     
 
-def get_article(request, name_article):    
-    res = util.get_entry(name_article)
+def get_article(request, title):    
+    res = util.get_entry(title)
     markup = markdown.markdown(res)
-    title = request.path_info.split('/')[-1]
+
     return render(request, "encyclopedia/article.html", {
         "title": title,
         "markup": markup,
-    })    
+    })   
+
 
 
