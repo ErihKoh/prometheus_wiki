@@ -21,18 +21,41 @@ input {
 }
 
 .my-button {
-    width: 100px;
-    margin-top: 20px;
-    border-radius: 5px;
-    color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
+  width: 100px;
+  margin-top: 20px;
+  border-radius: 5px;
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
 }
 
 .my_button:hover {
-    color: #fff;
-    background-color: #0069d9;
-    border-color: #0062cc;
+  color: #fff;
+  background-color: #0069d9;
+  border-color: #0062cc;
+}
+
+.create_page {
+  position: relative;
+}
+
+.messages {
+  position: absolute;
+  left: 30%;
+  transform: scale(0);
+  animation-name: animateMsg;
+  animation-duration: 3000ms;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes animateMsg {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1.2);
+  }
 }
 
 .main {

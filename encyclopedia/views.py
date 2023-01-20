@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 from random import choice
 import markdown2
 from django.urls import reverse
@@ -58,9 +59,11 @@ def create_new_page(request):
             query_content = form.cleaned_data["content"]
 
             content = f"# {query_title}\n\n {query_content}"
-            if query_title in list_article:
-                print('page has already exist')
-            util.save_entry(query_title, content)
+            if query_title not in list_article:
+                util.save_entry(query_title, content)
+                return HttpResponseRedirect(reverse("get_article", kwargs={'title': query_title}))
+                
+            messages.error(request, 'Page has already exist.')
 
     return render(request, "encyclopedia/create_page.html", {
         "form": forms.NewPage()
