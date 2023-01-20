@@ -70,6 +70,12 @@ def create_new_page(request):
     })
 
 
+def edit_page(request):
+    return render(request, "encyclopedia/edit_page.html", {
+        "form": forms.NewPage()
+    })
+
+
 def random_page(request):
     entries = util.list_entries()
     selected_page = choice(entries)
