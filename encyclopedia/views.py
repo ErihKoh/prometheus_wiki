@@ -5,6 +5,7 @@ import markdown2
 from django.urls import reverse
 
 from . import util
+from . import forms
 
 
 def search_article(request, list_article):
@@ -41,7 +42,9 @@ def get_article(request, title):
 
 
 def create_new_page(request):
-    return render(request, "encyclopedia/create_page.html")
+    return render(request, "encyclopedia/create_page.html", {
+        "form": forms.NewPage()
+    })
 
 
 def random_page(request):

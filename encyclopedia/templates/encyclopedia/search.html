@@ -1,0 +1,13 @@
+ {% block search %}
+ <form action="{% url 'index' %}" method="post" autocomplete="off">
+    {% csrf_token %}
+    <input
+      class="search"
+      type="text"
+      name="q"
+      placeholder="Search Encyclopedia"
+    />
+    {{search_form}}
+  </form>
+
+{% endblock %}
