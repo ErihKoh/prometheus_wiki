@@ -16,7 +16,10 @@
     <div class="row">
       <div class="sidebar col-lg-2 col-md-3">
         <h2>Wiki</h2>
-        {% block search %} {% endblock %}
+        <form action="{% url 'index' %}" method="post" autocomplete="off">
+    {% csrf_token %}
+    {{search_form}}
+  </form>
         <div>
           <a href="{% url 'index' %}">Home</a>
         </div>

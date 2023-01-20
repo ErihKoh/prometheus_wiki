@@ -2,5 +2,9 @@
 {%endblock %} {% block body %}
 <h1>Create New Page</h1>
 
-<form action="" class="create_form">{{ form }}</form>
+<form action="{% url 'create_new_page' %}" class="create_form" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button class="my-button" type="submit" value="Submit">Submit</button>
+</form>
 {% endblock %}

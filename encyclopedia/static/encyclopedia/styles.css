@@ -20,6 +20,21 @@ input {
   width: 20vw;
 }
 
+.my-button {
+    width: 100px;
+    margin-top: 20px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.my_button:hover {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+
 .main {
   padding: 10px;
 }
