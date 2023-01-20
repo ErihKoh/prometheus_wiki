@@ -1,25 +1,35 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 import markdown
 
-from . import util
+from . import util   
+
+
+def search_article(request, list_article):
+    query = request.POST.get('q')
+
+    result = [item for item in list_article if query.lower() in item.lower()]
+    if len(result) == 1:
+        return HttpResponseRedirect(f'wiki/{result[0]}')
+
+
+    return render(request, "encyclopedia/index.html", {
+            "entries": result or list_article,
+        })
+
 
 def index(request):
     list_article = util.list_entries()
 
     if request.method == "POST":
-        query = request.POST.get('q')
 
-        result = [item for item in list_article if query in item]
+       return search_article(request, list_article)
 
-        return render(request, "encyclopedia/index.html", {
-            "entries": result or list_article,
-        })
     return render(request, "encyclopedia/index.html", {
             "entries": list_article,
-        })   
+        })      
 
-    
 
 def get_article(request, title):    
     res = util.get_entry(title)
@@ -28,7 +38,4 @@ def get_article(request, title):
     return render(request, "encyclopedia/article.html", {
         "title": title,
         "markup": markup,
-    })   
-
-
-
+    }) 
