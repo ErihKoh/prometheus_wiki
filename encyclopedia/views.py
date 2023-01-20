@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from django.urls import reverse
-import markdown
+from random import randint
+import markdown2
 
 from . import util   
 
@@ -33,9 +33,20 @@ def index(request):
 
 def get_article(request, title):    
     res = util.get_entry(title)
-    markup = markdown.markdown(res)
+    markup = markdown2.markdown(res)
 
     return render(request, "encyclopedia/article.html", {
         "title": title,
         "markup": markup,
     }) 
+
+def create_new_page(request):
+    return render(request, "encyclopedia/create_page.html")
+
+
+def random_page(request):
+    list_article = util.list_entries()
+
+    random = randint(0, len(list_article))
+
+    return get_article(request, list_article[random])
