@@ -28,7 +28,12 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'some key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', False)
 
-ALLOWED_HOSTS = []
+if DEBUG:
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static')
+    ]
+
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -122,5 +127,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_URL = 'encyclopedia/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'encyclopedia/static/')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
