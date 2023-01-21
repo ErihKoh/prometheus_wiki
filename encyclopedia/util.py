@@ -36,14 +36,3 @@ def get_entry(title):
     except FileNotFoundError:
         return None
 
-
-def edit_entry(title):
-    try:
-        with open(f"entries/{title}.md", 'r') as fh:
-            i = fh.readlines()[1:]
-            # list_of_string = [i.decode() for i in fh.readlines()[1:]]
-            string_for_edit = ' '.join(i)
-            print(i)
-            return string_for_edit
-    except FileNotFoundError:
-        return None
