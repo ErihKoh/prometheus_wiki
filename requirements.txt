@@ -3,7 +3,7 @@ certifi==2022.6.15
 distlib==0.3.6
 Django==3.2.16
 django-tinymce==3.5.0
-filelock==3.8.0
+filelock==3.4.1
 gunicorn==20.1.0
 markdown2==2.4.6
 pipenv==2022.8.24
