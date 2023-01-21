@@ -6,7 +6,7 @@ django-tinymce==3.5.0
 filelock==3.4.1
 gunicorn==20.1.0
 markdown2==2.4.6
-pipenv==2022.8.24
+pipenv==2022.4.20
 platformdirs==2.5.2
 python-dotenv==0.20.0
 pytz==2022.7.1
