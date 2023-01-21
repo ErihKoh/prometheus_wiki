@@ -10,7 +10,7 @@ def list_entries():
     """
     _, filenames = default_storage.listdir("entries")
     return list(sorted(re.sub(r"\.md$", "", filename)
-                for filename in filenames if filename.endswith(".md")))
+                       for filename in filenames if filename.endswith(".md")))
 
 
 def save_entry(title, content):
@@ -33,5 +33,17 @@ def get_entry(title):
     try:
         f = default_storage.open(f"entries/{title}.md")
         return f.read().decode("utf-8")
+    except FileNotFoundError:
+        return None
+
+
+def edit_entry(title):
+    try:
+        with open(f"entries/{title}.md", 'r') as fh:
+            i = fh.readlines()[1:]
+            # list_of_string = [i.decode() for i in fh.readlines()[1:]]
+            string_for_edit = ' '.join(i)
+            print(i)
+            return string_for_edit
     except FileNotFoundError:
         return None

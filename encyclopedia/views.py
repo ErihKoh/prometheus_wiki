@@ -39,8 +39,8 @@ def index(request):
 
 
 def get_article(request, title):
-    res = util.get_entry(title)
-    markup = markdown2.markdown(res)
+    content = util.get_entry(title)
+    markup = markdown2.markdown(content)
 
     return render(request, "encyclopedia/article.html", {
         "title": title,
@@ -52,27 +52,39 @@ def get_article(request, title):
 def create_new_page(request):
     list_article = util.list_entries()
     if request.method == "POST":
-        form = forms.NewPage(request.POST)
+        form = forms.NewPageForm(request.POST)
 
         if form.is_valid():
-            query_title = form.cleaned_data["title"]
-            query_content = form.cleaned_data["content"]
+            title = form.cleaned_data["title"]
+            content = form.cleaned_data["content"]
 
-            content = f"# {query_title}\n\n {query_content}"
-            if query_title not in list_article:
-                util.save_entry(query_title, content)
-                return HttpResponseRedirect(reverse("get_article", kwargs={'title': query_title}))
-                
+            content = f"# {title}\n\n {content}"
+            if title not in list_article:
+                util.save_entry(title, content)
+                return HttpResponseRedirect(reverse("get_article", kwargs={'title': title}))
+
             messages.error(request, 'Page has already exist.')
 
     return render(request, "encyclopedia/create_page.html", {
-        "form": forms.NewPage()
+        "form": forms.NewPageForm()
     })
 
 
-def edit_page(request):
+def edit_page(request, title):
+    content = util.get_entry(title)
+
+    if request.method == "POST":
+        form = forms.EditPageForm(request.POST)
+
+        if form.is_valid():
+            content = form.cleaned_data["content"]
+
+            util.save_entry(title, content)
+            return HttpResponseRedirect(reverse("get_article", kwargs={'title': title}))
+
     return render(request, "encyclopedia/edit_page.html", {
-        "form": forms.NewPage()
+        "form": forms.EditPageForm(initial={'content': content}),
+        "title": title,
     })
 
 
