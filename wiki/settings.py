@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 from dotenv import load_dotenv
 
+
 load_dotenv()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -130,3 +131,6 @@ USE_TZ = True
 STATIC_URL = 'encyclopedia/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'encyclopedia/static/')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
+MEDIA_URL = 'encyclopedia/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'encyclopedia/media/')
